@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Scores from "./pages/Scores";
 import Subscription from "./pages/Subscription";
 import Charity from "./pages/Charity";
+import Admin from "./pages/Admin";
 
 const App = () => {
   return (
@@ -40,12 +41,19 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/charity"
           element={
             <ProtectedRoute>
               <Charity />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
             </ProtectedRoute>
           }
         />
