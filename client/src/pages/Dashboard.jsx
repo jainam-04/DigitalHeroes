@@ -1,24 +1,49 @@
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import api from "../utils/api";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
+  const [data, setData] = useState({});
+  const token = localStorage.getItem("token");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
 
-  const logout = () => {
-    localStorage.clear();
-    navigate("/login");
+  const fetchDashboard = async () => {
+    const res = await api.get("/user/dashboard", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setData(res.data);
   };
 
   return (
     <div className="min-h-screen bg-black text-white p-10">
-      <h1 className="text-4xl font-bold">Welcome, {user?.name}</h1>
+      <h1 className="text-4xl font-bold mb-8">Welcome {data.name}</h1>
 
-      <p className="mt-4">{user?.email}</p>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="bg-zinc-900 p-6 rounded-xl">
+          <h2>Status</h2>
+          <p>{data.subscriptionStatus}</p>
+        </div>
 
-      <button onClick={logout} className="mt-6 bg-red-600 px-6 py-2 rounded">
-        Logout
-      </button>
+        <div className="bg-zinc-900 p-6 rounded-xl">
+          <h2>Plan</h2>
+          <p>{data.planType}</p>
+        </div>
+
+        <div className="bg-zinc-900 p-6 rounded-xl">
+          <h2>Total Scores</h2>
+          <p>{data.totalScores}</p>
+        </div>
+
+        <div className="bg-zinc-900 p-6 rounded-xl">
+          <h2>Total Won</h2>
+          <p>₹{data.totalWon}</p>
+        </div>
+      </div>
     </div>
   );
 }

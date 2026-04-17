@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Scores from "./pages/Scores";
+import Subscription from "./pages/Subscription";
+import Charity from "./pages/Charity";
 
 const App = () => {
   return (
@@ -27,6 +29,23 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Scores />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/subscription"
+          element={
+            <ProtectedRoute>
+              <Subscription />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/charity"
+          element={
+            <ProtectedRoute>
+              <Charity />
             </ProtectedRoute>
           }
         />

@@ -12,6 +12,8 @@ app.use(express.json())
 
 app.use('/api/auth', require('./routes/authRoutes.js'))
 app.use("/api/scores", require("./routes/scoreRoutes"));
+app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api/charities", require("./routes/charityRoutes"));
 
 app.get('/', (req, res) => {
       console.log("Backend is running successfully")

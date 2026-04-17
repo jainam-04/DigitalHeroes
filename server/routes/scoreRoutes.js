@@ -8,7 +8,7 @@ const {
       getMyScores,
       updateScore,
       deleteScore
-} = require("../controller/scoreController");
+} = require("../controllers/scoreController");
 
 router.post("/add", protect, addScore);
 router.get("/my", protect, getMyScores);

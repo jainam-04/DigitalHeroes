@@ -17,6 +17,27 @@ const userSchema = new mongoose.Schema({
       role: {
             type: String,
             default: "user"
+      },
+      subscriptionStatus: {
+            type: String,
+            default: "inactive"
+      },
+      planType: {
+            type: String,
+            default: ""
+      },
+      expiryDate: Date,
+      selectedCharity: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Charity"
+      },
+      donationPercent: {
+            type: Number,
+            default: 10
+      },
+      totalWon: {
+            type: Number,
+            default: 0
       }
 }, {
       timestamps: true
