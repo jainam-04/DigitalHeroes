@@ -9,6 +9,7 @@ import Scores from "./pages/Scores";
 import Subscription from "./pages/Subscription";
 import Charity from "./pages/Charity";
 import Admin from "./pages/Admin";
+import AdminRoute from "./components/AdminRoute";
 
 const App = () => {
   return (
@@ -52,9 +53,9 @@ const App = () => {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <Admin />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
       </Routes>
