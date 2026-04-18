@@ -10,7 +10,7 @@ connectdb()
 app.use(cors({
       origin: [
             "https://digital-heroes-five-weld.vercel.app/",
-            "https://digitalheroes-p7bd.onrender.com"
+            "http://localhost:5173"
       ],
       credentials: true
 }));

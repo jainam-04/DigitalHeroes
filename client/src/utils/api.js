@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-      baseURL: "https://digitalheroes-p7bd.onrender.com"
+      baseURL: "https://digitalheroes-p7bd.onrender.com/api"
 });
 
 api.interceptors.response.use(
