@@ -7,13 +7,25 @@ const app = express()
 
 connectdb()
 
+const allowedOrigins = [
+      "https://digital-heroes-five-weld.vercel.app",
+      "http://localhost:5173"
+];
+
 app.use(cors({
-      origin: [
-            "https://digital-heroes-five-weld.vercel.app/",
-            "http://localhost:5173"
-      ],
-      credentials: true
+      origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                  callback(null, true);
+            } else {
+                  callback(new Error("Not allowed by CORS"));
+            }
+      },
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.options("*", cors());
 app.use(express.json())
 
 app.use('/api/auth', require('./routes/authRoutes.js'))
