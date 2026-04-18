@@ -9,8 +9,8 @@ connectdb()
 
 app.use(cors({
       origin: [
-            "http://localhost:5173"
-            // "https://your-vercel-app.vercel.app"
+            // "http://localhost:5173",
+            "https://digitalheroes-p7bd.onrender.com"
       ],
       credentials: true
 }));
