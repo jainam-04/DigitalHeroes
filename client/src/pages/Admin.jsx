@@ -71,7 +71,7 @@ export default function Admin() {
             ) : (
               draw.winners.map((w, i) => (
                 <p key={i}>
-                  {w.name} - {w.matchType} Matches
+                  {w.name} - {w.matchType} Matches - ₹{w.prize.toFixed(0)}
                 </p>
               ))
             )}

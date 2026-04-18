@@ -64,6 +64,12 @@ exports.getMyScores = async (req, res) => {
 exports.updateScore = async (req, res) => {
       try {
             const { score } = req.body;
+            
+            if (score < 1 || score > 45) {
+                  return res.status(400).json({
+                        message: "Score must be between 1 and 45"
+                  });
+            }
 
             const updated = await Score.findByIdAndUpdate(
                   req.params.id,

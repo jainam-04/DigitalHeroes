@@ -49,22 +49,59 @@ exports.selectCharity = async (req, res) => {
 };
 
 exports.getDashboard = async (req, res) => {
-      const user = await User.findById(req.user._id)
-            .populate("selectedCharity");
+      try {
+            const user = await User.findById(req.user._id)
+                  .populate("selectedCharity");
 
-      const scoreCount = await Score.countDocuments({
-            userId: req.user._id
-      });
+            const scores = await Score.find({
+                  userId: req.user._id
+            }).sort({ date: -1 });
 
-      res.json({
-            name: user.name,
-            email: user.email,
-            subscriptionStatus: user.subscriptionStatus,
-            planType: user.planType,
-            expiryDate: user.expiryDate,
-            charity: user.selectedCharity,
-            donationPercent: user.donationPercent,
-            totalWon: user.totalWon,
-            totalScores: scoreCount
-      });
+            const scoresStored = scores.length;
+
+            const highestScore =
+                  scores.length > 0
+                        ? Math.max(...scores.map((item) => item.score))
+                        : 0;
+
+            const averageScore =
+                  scores.length > 0
+                        ? (
+                              scores.reduce(
+                                    (sum, item) => sum + item.score,
+                                    0
+                              ) / scores.length
+                        ).toFixed(1)
+                        : 0;
+
+            const latestScore =
+                  scores.length > 0
+                        ? scores[0].score
+                        : 0;
+
+            res.json({
+                  name: user.name,
+                  email: user.email,
+
+                  subscriptionStatus: user.subscriptionStatus,
+                  planType: user.planType,
+                  expiryDate: user.expiryDate,
+
+                  charity: user.selectedCharity,
+                  donationPercent: user.donationPercent,
+
+                  totalWon: user.totalWon,
+
+                  scoresStored,
+                  highestScore,
+                  averageScore,
+                  latestScore
+            });
+
+      } catch (error) {
+            res.status(500).json({
+                  message: error.message
+            });
+      }
 };
+
